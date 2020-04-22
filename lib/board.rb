@@ -48,6 +48,30 @@ class Board
 		connected
 	end
 
+	def row_connect?()
+		connected = false
+		number_in_a_row = 0
+		prev = nil
+		6.times do |row|
+			7.times do |column|
+				cel = @grid[column][row]
+				if cel.value == prev
+					unless prev == nil
+						number_in_a_row += 1
+					end
+				else
+					number_in_a_row = 0
+				end
+				prev = cel.value
+				if number_in_a_row == 3
+					connected = true
+					break
+				end
+			end
+		end
+		connected
+	end
+	
 	private
 	attr_writer :grid
 

@@ -46,8 +46,18 @@ describe Board do
 			board.drop_chip(5, "Y")
 		end
 
-		it "returns true when column is complete" do
+		it "returns true when column is connected" do
 			expect(board.column_connect?()).to eq(true)
+		end
+	end
+
+	context "Test for horizontal connection" do
+		board = Board.new()
+		4.times do |column|
+			board.drop_chip(column, "A")
+		end
+		it "row_connect?() returns true" do
+			expect(board.row_connect?()).to eq(true)
 		end
 	end
 
