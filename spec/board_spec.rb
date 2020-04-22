@@ -1,37 +1,34 @@
 require './lib/board.rb'
+require './lib/cell.rb'
 
 describe Board do
+	board = Board.new()
+	it "Value line_one[0] is a cell" do
+		expect(board.line_one[0].instance_of?(Cell)).to eql(true)
+	end	
+	it "Value line_five[3] is a cell" do
+		expect(board.line_five[3].instance_of?(Cell)).to eql(true)
+	end
+	it "Value line_seven[5] is a cell" do
+		expect(board.line_seven[5].instance_of?(Cell)).to eql(true)
+	end
 
-	context "create a new board" do
-		board = Board.new()
+	it "returns true when valid move" do
+		drop = board.drop_chip("line_one", "X")   
+		expect(drop).to eq(true)
+	end
 
-		it "creates line_one" do
-			expect(board.line_one()).to eq([nil, nil, nil, nil, nil, nil])
-		end
+	it "changes the value of first available cell" do
+		expect(board.line_one[0].value).to eq("X")
+	end
 
-		it "creates line_two" do
-			expect(board.line_two()).to eq([nil, nil, nil, nil, nil, nil])
-		end
-		
-		it "creates line_three" do
-			expect(board.line_three()).to eq([nil, nil, nil, nil, nil, nil])
-		end
-
-		it "creates line_four" do
-			expect(board.line_four()).to eq([nil, nil, nil, nil, nil, nil])
-		end
-
-		it "creates line_five" do
-			expect(board.line_five()).to eq([nil, nil, nil, nil, nil, nil])
-		end
-
-		it "creates line_six" do
-			expect(board.line_six()).to eq([nil, nil, nil, nil, nil, nil])
-		end
-
-		it "creates line_seven" do
-			expect(board.line_seven()).to eq([nil, nil, nil, nil, nil, nil])
-		end
-
+	it "returns false when move is not possible" do
+		board.drop_chip("line_one", "X")   
+		board.drop_chip("line_one", "X")   
+		board.drop_chip("line_one", "X")   
+		board.drop_chip("line_one", "X")   
+		board.drop_chip("line_one", "X")   
+		should_be_false = board.drop_chip("line_one", "X")   
+		expect(should_be_false).to eq(false)
 	end
 end
