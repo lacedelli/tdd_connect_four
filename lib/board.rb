@@ -1,32 +1,54 @@
 require 'cell.rb'
 
 class Board
-	attr_accessor :line_one, :line_two, :line_three, :line_four, :line_five, :line_six, :line_seven
+	attr_reader :grid
 
 	def initialize()
-		@line_one = [Cell.new(), Cell.new(), Cell.new(), Cell.new(), Cell.new(), Cell.new()]
-		@line_two = [Cell.new(), Cell.new(), Cell.new(), Cell.new(), Cell.new(), Cell.new()]
-		@line_three = [Cell.new(), Cell.new(), Cell.new(), Cell.new(), Cell.new(), Cell.new()]
-		@line_four = [Cell.new(), Cell.new(), Cell.new(), Cell.new(), Cell.new(), Cell.new()]
-		@line_five = [Cell.new(), Cell.new(), Cell.new(), Cell.new(), Cell.new(), Cell.new()]
-		@line_six = [Cell.new(), Cell.new(), Cell.new(), Cell.new(), Cell.new(), Cell.new()]
-		@line_seven = [Cell.new(), Cell.new(), Cell.new(), Cell.new(), Cell.new(), Cell.new()]
+		@grid = Array.new([[], [], [], [], [], [], []])
+		
+		7.times() do |column|
+			6.times() do |row|
+				@grid[column] << Cell.new()
+			end
+		end
 	end
 
-	def drop_chip(row, move)
-		line = self.instance_variable_get("@#{row}")
+	def drop_chip(column, chip)
 		dropped = false
-		line.each do |cell|
+		@grid[column].each do |cell|
 			if cell.value == nil
-				cell.set_value(move)
+				cell.set_value(chip) 
 				dropped = true
+				break
 			end
-			break if dropped 
 		end
-		dropped
+			dropped
+	end
+	
+	def column_connect?()
+		connected = false
+		number_in_a_row = 0
+		prev = nil
+		@grid.each do |column|
+			column.each do |cel|
+				if prev == cel.value
+					unless prev == nil
+						number_in_a_row += 1 
+					end
+				else
+					number_in_a_row = 0
+				end
+				prev = cel.value
+				if number_in_a_row == 3
+					connected = true
+					break
+				end
+			end
+		end
+		connected
 	end
 
 	private
-	attr_writer :line_one, :line_two, :line_three, :line_four, :line_five, :line_six, :line_seven
+	attr_writer :grid
 
 end
