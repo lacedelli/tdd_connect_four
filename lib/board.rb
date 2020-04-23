@@ -29,6 +29,7 @@ class Board
 		connected = false
 		number_in_a_row = 0
 		prev = nil
+		value = nil
 		@grid.each do |column|
 			column.each do |cel|
 				if prev == cel.value
@@ -40,18 +41,20 @@ class Board
 				end
 				prev = cel.value
 				if number_in_a_row == 3
+					value = prev
 					connected = true
-					break
+					return [connected, value]
 				end
 			end
 		end
-		connected
+		[false, nil]
 	end
 
 	def row_connect?()
 		connected = false
 		number_in_a_row = 0
 		prev = nil
+		value = nil
 		6.times do |row|
 			7.times do |column|
 				cel = @grid[column][row]
@@ -64,12 +67,33 @@ class Board
 				end
 				prev = cel.value
 				if number_in_a_row == 3
+					value = prev
 					connected = true
-					break
+					return [connected, value]
 				end
 			end
 		end
-		connected
+		[false, nil]
+	end
+
+	def diagonal_connect?()
+		connected = false
+		number_in_a_row = 0
+		value = nil
+		# for each row
+			# for each column
+				# cel = @grid[column][row]
+				# if @grid[column + 1][row + 1].data == cel.data
+					# steps = 1
+					# next = @grid[column + steps][row + steps]
+					# until next.data == cel.data
+						# steps += 1
+						# number_in_a_row += 1
+						# next = @grid[column + steps][row + steps]
+				# if number_in_a_row == 3
+					# value = cel.value 
+					# connected = true
+					# return [connected, value]
 	end
 	
 	private
