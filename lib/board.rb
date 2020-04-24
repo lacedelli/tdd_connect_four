@@ -78,16 +78,21 @@ class Board
 
 	def diagonal_connect?(cell = @grid[0][0], coord = [0,0], count = 0)
 		# return if cell == nil
+		puts "Entered diag_conn? cell value: #{cell.value}, coord: #{coord}, count #{count}"
 		# return [true, value] if count == 4
 		return [true, cell.value] if count == 4
 		# current cel = @grid[coord[0]][coord[1]] 
 		current_cell = cell
-		# check grid at @grid[coord[0] + 1][coord[1] - 1]
-		diag_l_to_r = @grid[coord[0] + 1][coord[1] - 1]
+		if @grid[coord[0] + 1][coord[1] - 1].nil?
+			diag_l_to_r = nil
+		else
+			diag_l_to_r = @grid[coord[0] + 1][coord[1] - 1]
+		end
 		# if checked cell.value == current cel.value
 		if diag_l_to_r.value == current_cell.value
+			puts "l to r == cell true"
 		# recurse on itself passing matching cel as the current as well as coordinates count + 1 
-			diagonal_connect?(diag_l_to_r, [coord[0] + 1, coord[1] - 1], count + 1)
+			diagonal_connect?(cell, [coord[0] + 1, coord[1] - 1], count + 1)
 		#elsif # if r to l matches	
 		#
 		# TODO MAKE AN ALGORITHM FOR RIGHT TO LEFT TRAVERSAL
@@ -96,7 +101,7 @@ class Board
 			#means no matches
 			#if we can traverse vertically, do so
 			if !@grid[coord[0]][coord[1] + 1].nil?
-				diagonal_connect?(@grid[coord[0]][coord[1]+ 1], [coord[0]][coord[1] + 1], count = 0)
+				diagonal_connect?(@grid[coord[0]][coord[1]+ 1], [coord[0], coord[1] + 1], count = 0)
 			end	
 			#if we can traverse horizontally, but not vertically, do so
 			#if we can not traverse either way return [false, nil]
