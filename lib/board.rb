@@ -76,24 +76,53 @@ class Board
 		[false, nil]
 	end
 
-	def diagonal_connect?()
-		connected = false
-		number_in_a_row = 0
-		value = nil
-		# for each row
-			# for each column
-				# cel = @grid[column][row]
-				# if @grid[column + 1][row + 1].data == cel.data
-					# steps = 1
-					# next = @grid[column + steps][row + steps]
-					# until next.data == cel.data
-						# steps += 1
-						# number_in_a_row += 1
-						# next = @grid[column + steps][row + steps]
-				# if number_in_a_row == 3
-					# value = cel.value 
-					# connected = true
-					# return [connected, value]
+	def diagonal_connect?(cell = @grid[0][0], coord = [0,0], count = 0)
+		# return if cell == nil
+		# return [true, value] if count == 4
+		return [true, cell.value] if count == 4
+		# current cel = @grid[coord[0]][coord[1]] 
+		current_cell = cell
+		# check grid at @grid[coord[0] + 1][coord[1] - 1]
+		diag_l_to_r = @grid[coord[0] + 1][coord[1] - 1]
+		# if checked cell.value == current cel.value
+		if diag_l_to_r.value == current_cell.value
+		# recurse on itself passing matching cel as the current as well as coordinates count + 1 
+			diagonal_connect?(diag_l_to_r, [coord[0] + 1, coord[1] - 1], count + 1)
+		#elsif # if r to l matches	
+		#
+		# TODO MAKE AN ALGORITHM FOR RIGHT TO LEFT TRAVERSAL
+		#
+		else
+			#means no matches
+			#if we can traverse vertically, do so
+			if !@grid[coord[0]][coord[1] + 1].nil?
+				diagonal_connect?(@grid[coord[0]][coord[1]+ 1], [coord[0]][coord[1] + 1], count = 0)
+			end	
+			#if we can traverse horizontally, but not vertically, do so
+			#if we can not traverse either way return [false, nil]
+		end
+		#
+		# BAD ITERATION METHOD THAT WORKS
+		#6.times do |row|
+			#7.times do |column|
+				#cell = @grid[column][row]
+				#unless cell.value.nil?
+					#unless @grid[column + 1][row - 1].nil?
+						#n_cell = @grid[column + 1][row - 1]
+						#if n_cell.value == cell.value
+							#if @grid[column + 2][row - 2].value == cell.value
+								#if @grid[column + 3][row - 3].value == cell.value
+									#return [true, cell.value]
+								#end
+							#end
+						#end
+					#end
+					#unless @grid[column - 1][row - 1].nil?
+						#
+					#end
+				#end
+			#end
+		#end
 	end
 	
 	private
