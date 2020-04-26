@@ -11,4 +11,25 @@ describe Cell do
 		cell.set_value("x")
 		expect(cell.value()).to eq("x")
 	end
+
+	it "connects to up" do
+		cell.connect_up(Cell.new)
+		expect(cell.up().instance_of?(Cell)).to eq(true)
+	end
+
+	it "connects to left" do
+		cell.connect_left(Cell.new)
+		expect(cell.left().instance_of?(Cell)).to eq(true)
+	end
+
+	it "connects upper left" do
+		cell.connect_up_l(Cell.new)
+		expect(cell.up_l().instance_of?(Cell)).to eq(true)
+	end
+
+	it "connects upper right" do 
+		cell.connect_up_r(Cell.new)
+		expect(cell.up_l().instance_of?(Cell)).to eq(true)
+	end
+
 end
