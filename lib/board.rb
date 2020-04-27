@@ -25,11 +25,27 @@ class Board
 	end
 	
 	def column_connect?()
-		return nil
+		counter = 0
+		@grid.each do |column|
+			column.each do |space|
+				cell = space
+				unless cell.value.nil?
+				end
+			end
+		end
+		false
 	end
 
 	def row_connect?()
-		return nil
+		counter = 0
+		@grid.each do |column|
+			column.each do |space|
+				cell = space
+				unless cell.value.nil?
+				end
+			end
+		end
+		false
 	end
 
 	def left_to_right_connect?()
@@ -61,9 +77,9 @@ class Board
 			end
 		end
 		# check for up left
-		if coord[0] + 1 <= col_lim && coord[1] - 1 <= row_lim
-			if coord[0] + 1  >= 0 && coord[1] -1 >= 0
-				cell.connect_up_l(@grid[coord[0] + 1][coord[1] - 1])
+		if coord[0] - 1 <= col_lim && coord[1] + 1 <= row_lim
+			if coord[0] - 1 >= 0 && coord[1] + 1 >= 0
+				cell.connect_up_l(@grid[coord[0] - 1][coord[1] + 1])
 			end
 		end
 		# check for up right
