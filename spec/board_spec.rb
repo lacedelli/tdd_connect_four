@@ -17,50 +17,27 @@ describe Board do
 			expect(board.grid[3][2].instance_of?(Cell)).to eq(true)
 		end
 
-		it "drops a chip on a row and returns true" do
+		it "returns true when a chip has been successfuly dropped" do
 			should_be_true = board.drop_chip(0, "X")
 			expect(should_be_true).to eq(true)
 		end
 
-		it "has a cell as a value for up on @grid[0][0]" do
-			expect(board.grid[0][0].up().instance_of?(Cell)).to eq(true)
+		first_cell = board.grid[0][0]
+
+		it "has an instance of cell on the upper cell" do
+			expect(first_cell.up().instance_of?(Cell)).to eq(true)
 		end
 
-		it "has a cell as a value for right on @grid[0][0]" do
-			expect(board.grid[0][0].right().instance_of?(Cell)).to eq(true)
+		it "has an instance of cell on right cell" do
+			expect(first_cell.right().instance_of?(Cell)).to eq(true)
 		end
 
-		it "has indeed dropped the chip" do
-			expect(board.grid[0][0].value).to eq("X")
+		it "has an instance of cell on top right" do
+			expect(first_cell.up_r().instance_of?(Cell)).to eq(true)
 		end
-
-		5.times do 
-			board.drop_chip(0, "X")
-		end
-
-		it "returns false when a move is not possible" do
-			should_be_false = board.drop_chip(0, "X")
-			expect(should_be_false).to eq(false)
-		end
-
-		it "has value of nil on up for @grid[0][5]" do
-			expect(board.grid[0][5].up()).to eq(nil)
-		end
-
-		it "returns [true, chip value] when a column is complete" do
-			expect(board.column_connect?()).to eq([true, "X"])
+		
+		it "has nothing attached to cell on top left" do
+			expect(first_cell.up_l()).to eq(nil)
 		end
 	end
-
-	context "second column test" do
-		board = Board.new()
-		4.times do
-			board.drop_chip(5, "Y")
-		end
-
-		it "returns [true, chip value] when column is connected" do
-			expect(board.column_connect?()).to eq([true, "Y"])
-		end
-	end
-
 end
