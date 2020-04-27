@@ -60,4 +60,41 @@ describe Board do
 		end
 
 	end
+
+	context "test for left to right diagonal connection" do
+		b = Board.new()
+		b.drop_chip(1, "Y")
+		2.times do
+			b.drop_chip(2, "Y")
+		end
+		3.times do
+			b.drop_chip(3, "Y")
+		end
+		4.times do |col|
+			b.drop_chip(col, "X")
+		end
+
+		it "returns [true, value] for left to right connection" do
+			expect(b.left_to_right_connect?()).to eq([true, "X"])
+		end
+	end
+
+	context "test for right to left diagonal connection" do
+		b = Board.new()
+		b.drop_chip(4, "Y")
+		2.times do 
+			b.drop_chip(3, "Y")
+		end
+		3.times do 
+			b.drop_chip(2, "Y")
+		end
+		b.drop_chip(5, "X")
+		b.drop_chip(4, "X")
+		b.drop_chip(3, "X")
+		b.drop_chip(2, "X")
+		
+		it "returns [true, value] for right to left connection" do
+			expect(b.right_to_left_connect?()).to eq([true, "X"])
+		end
+	end
 end

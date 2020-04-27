@@ -25,13 +25,15 @@ class Board
 	end
 	
 	def column_connect?()
-		counter = 0
 		@grid.each do |column|
 			column.each do |space|
 				cell = space
 				unless cell.value.nil?
 					if cell.value() == cell.up().value()
-						return vertical_connection(cell, 0)
+						value = vertical_connection(cell, 0)
+						if value.instance_of?(Array)
+							return value
+						end
 					end
 				end
 			end
@@ -40,13 +42,15 @@ class Board
 	end
 
 	def row_connect?()
-		counter = 0
 		@grid.each do |column|
 			column.each do |space|
 				cell = space
 				unless cell.value.nil?
 					if cell.value() == cell.right().value()
-						return horizontal_connection(cell, 0)
+						value =  horizontal_connection(cell, 0)
+						if value.instance_of?(Array)
+							return value
+						end
 					end
 				end
 			end
@@ -55,13 +59,38 @@ class Board
 	end
 
 	def left_to_right_connect?()
-		return nil
+		@grid.each do |column|
+			column.each do |space|
+				cell = space
+				unless cell.value.nil?
+					if cell.value() == cell.up_r().value()
+						value =  left_to_right_connection(cell, 0)
+						if value.instance_of?(Array)
+							return value
+						end
+					end
+				end
+			end
+		end
+		false
 	end
 	
 	def right_to_left_connect?()
-		return nil
+		@grid.each do |column|
+			column.each do |space|
+				cell = space
+				unless cell.value.nil?
+					if cell.value() == cell.up_l().value()
+						value =	right_to_left_connection(cell, 0)
+						if value.instance_of?(Array)
+							return value
+						end
+					end
+				end
+			end
+		end
+		false
 	end
-
 
 	private
 	attr_writer :grid
@@ -81,7 +110,30 @@ class Board
 			horizontal_connection(cell.right(), number + 1)
 		end
 	end
-	
+
+	def left_to_right_connection(cell, number)
+		return if cell.nil?
+		return [true, cell.value()] if number == 3
+		if cell.value() == cell.up_r().value
+			left_to_right_connection(cell.up_r(), number + 1)
+		end
+	end
+
+	def right_to_left_connection(cell, number)
+		if cell.nil?
+			return
+		elsif number == 3
+			return [true, cell.value()] 
+		elsif cell.up_l().value != cell.value()
+			return  
+		else
+			if cell.value() == cell.up_l().value
+			right_to_left_connection(cell.up_l(), number + 1)
+			end
+		end
+	end
+
+
 	def connect_cell(coord)
 		row_lim = 5
 		col_lim = 6
