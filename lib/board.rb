@@ -19,14 +19,10 @@ class Board
 			if cell.value == nil
 				cell.set_value(chip) 
 				dropped = true
-				depth = @grid[column].index(cell)
-				unless @grid[column][depth + 1].nil?
-					cell.connect_up(@grid[column][depth + 1])
-				end
 				break
 			end
 		end
-			dropped
+		dropped
 	end
 	
 	def column_connect?()
@@ -108,5 +104,14 @@ class Board
 
 	private
 	attr_writer :grid
+	
+	def connect_cell(coord)
+		# Get position of cell
+		cell = @grid[coord[0], coord[1]]
+		# check for availavility of up
+		# check for right
+		# check for up left
+		# check for up right
+	end
 
 end

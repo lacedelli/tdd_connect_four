@@ -1,9 +1,9 @@
 class Cell
-	attr_reader :value, :left, :up, :up_r, :up_l
+	attr_reader :value, :right, :up, :up_r, :up_l
 
 	def initialize(value = nil)
 		@value = value
-		@left = nil
+		@right = nil
 		@up = nil
 		@up_l = nil
 		@up_r = nil
@@ -13,8 +13,8 @@ class Cell
 		@value = value
 	end
 	
-	def connect_left(cell)
-		@left = cell
+	def connect_right(cell)
+		@right = cell
 	end
 
 	def connect_up(cell)
@@ -30,6 +30,6 @@ class Cell
 	end
 
 	private
-	attr_writer :value, :left, :up, :up_r, :up_l
+	attr_writer :value, :right, :up, :up_r, :up_l
 
 end

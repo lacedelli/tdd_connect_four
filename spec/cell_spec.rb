@@ -17,9 +17,9 @@ describe Cell do
 		expect(cell.up().instance_of?(Cell)).to eq(true)
 	end
 
-	it "connects to left" do
-		cell.connect_left(Cell.new)
-		expect(cell.left().instance_of?(Cell)).to eq(true)
+	it "connects to right" do
+		cell.connect_right(Cell.new)
+		expect(cell.right().instance_of?(Cell)).to eq(true)
 	end
 
 	it "connects upper left" do
