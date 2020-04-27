@@ -2,7 +2,7 @@ require './lib/board.rb'
 require './lib/cell.rb'
 
 describe Board do
-	context "setup and vertical testing" do
+	context "setup and basic testing" do
 		board = Board.new()
 	
 		it "has an instance of cell on Board.grid[0][0]" do
@@ -45,14 +45,14 @@ describe Board do
 			expect(board.grid[1][0].up_l()).to eql(board.grid[0][1])
 		end
 		
-		it "returns true and value for column connect" do
+		it "returns true and value for row connect" do
 			2.times do |i|
 				board.drop_chip(i + 2, "X")
 			end
 			expect(board.row_connect?()).to eq([true, "X"])
 		end
 
-		it "returns true and value for row connect" do
+		it "returns true and value for column connect" do
 			3.times do
 				board.drop_chip(0, "X")
 			end

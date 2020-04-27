@@ -30,6 +30,9 @@ class Board
 			column.each do |space|
 				cell = space
 				unless cell.value.nil?
+					if cell.value() == cell.up().value()
+						return vertical_connection(cell, 0)
+					end
 				end
 			end
 		end
@@ -42,6 +45,9 @@ class Board
 			column.each do |space|
 				cell = space
 				unless cell.value.nil?
+					if cell.value() == cell.right().value()
+						return horizontal_connection(cell, 0)
+					end
 				end
 			end
 		end
@@ -59,6 +65,22 @@ class Board
 
 	private
 	attr_writer :grid
+
+	def vertical_connection(cell, number)
+		return if cell.nil?
+		return [true, cell.value()] if number == 3
+		if cell.value() == cell.up().value()
+			vertical_connection(cell.up(), number + 1)
+		end
+	end
+
+	def horizontal_connection(cell, number)
+		return if cell.nil?
+		return [true, cell.value()] if number == 3
+		if cell.value() == cell.right().value
+			horizontal_connection(cell.right(), number + 1)
+		end
+	end
 	
 	def connect_cell(coord)
 		row_lim = 5
