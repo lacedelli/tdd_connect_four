@@ -12,8 +12,8 @@ that I'm about to do. Anyway, let's get to it!
 ## Thoughts after finishing project
 
 This project took me a while to completely grasp the full extent of the
-"algorithm" that I was supposed to use in order to make it work in a suffi-
-ciently satisfying manner, the first time around I held every column in a
+"algorithm" that I was supposed to use in order to make it work in a sufficiently 
+satisfying manner, the first time around I held every column in a
 variable of its own, but soon realized that column-to-column traversal
 would be close to impossible; then I switched to a bi-dimensional array
 and I was set to work, but that too gave me trouble in little to no time.
