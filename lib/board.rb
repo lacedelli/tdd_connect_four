@@ -1,4 +1,4 @@
-require 'cell.rb'
+require './lib/cell.rb'
 
 class Board
 	attr_reader :grid
@@ -29,10 +29,12 @@ class Board
 			column.each do |space|
 				cell = space
 				unless cell.value.nil?
-					if cell.value() == cell.up().value()
-						value = vertical_connection(cell, 0)
-						if value.instance_of?(Array)
-							return value
+					unless cell.up().nil?
+						if cell.value() == cell.up().value()
+							value = vertical_connection(cell, 0)
+							if value.instance_of?(Array)
+								return value
+							end
 						end
 					end
 				end
@@ -46,10 +48,12 @@ class Board
 			column.each do |space|
 				cell = space
 				unless cell.value.nil?
-					if cell.value() == cell.right().value()
-						value =  horizontal_connection(cell, 0)
-						if value.instance_of?(Array)
-							return value
+					unless cell.right().nil?
+						if cell.value() == cell.right().value()
+							value =  horizontal_connection(cell, 0)
+							if value.instance_of?(Array)
+								return value
+							end
 						end
 					end
 				end
@@ -63,10 +67,12 @@ class Board
 			column.each do |space|
 				cell = space
 				unless cell.value.nil?
-					if cell.value() == cell.up_r().value()
-						value =  left_to_right_connection(cell, 0)
-						if value.instance_of?(Array)
-							return value
+					unless cell.up_r().nil?
+						if cell.value() == cell.up_r().value()
+							value =  left_to_right_connection(cell, 0)
+							if value.instance_of?(Array)
+								return value
+							end
 						end
 					end
 				end
@@ -79,11 +85,13 @@ class Board
 		@grid.each do |column|
 			column.each do |space|
 				cell = space
-				unless cell.value.nil?
-					if cell.value() == cell.up_l().value()
-						value =	right_to_left_connection(cell, 0)
-						if value.instance_of?(Array)
-							return value
+				unless cell.value().nil?
+					unless cell.up_l().nil?
+						if cell.value() == cell.up_l().value()
+							value =	right_to_left_connection(cell, 0)
+							if value.instance_of?(Array)
+								return value
+							end
 						end
 					end
 				end
