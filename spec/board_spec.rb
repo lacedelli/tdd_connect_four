@@ -17,6 +17,11 @@ describe Board do
 			expect(board.grid[3][2].instance_of?(Cell)).to eq(true)
 		end
 
+		it "renders an ascii board for the players to interact with game" do
+			expect(board.render()).to eq("| | | | | | | |\n| | | | | | | |\n| | | | | | | |\n| | | | | | | |\n| | | | | | | |\n| | | | | | | |\n") 
+		end
+
+
 		it "returns true when a chip has been successfuly dropped" do
 			should_be_true = board.drop_chip(0, "X")
 			expect(should_be_true).to eq(true)
@@ -50,6 +55,10 @@ describe Board do
 				board.drop_chip(i + 2, "X")
 			end
 			expect(board.row_connect?()).to eq([true, "X"])
+		end
+
+		it "displays board in the expected manner" do
+			expect(board.render()).to eq("| | | | | | | |\n| | | | | | | |\n| | | | | | | |\n| | | | | | | |\n| | | | | | | |\n|X|X|X|X| | | |\n") 
 		end
 
 		it "returns true and value for column connect" do

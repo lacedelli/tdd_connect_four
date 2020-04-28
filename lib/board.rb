@@ -92,6 +92,24 @@ class Board
 		false
 	end
 
+	def render()
+		rows = 5..0
+		board_string = ""
+		rows.first().downto(rows.last()).each do |row|
+			board_string << "|"
+			7.times do |column|
+				value = @grid[column][row].value()	
+				if value.nil?
+					board_string << (" |")
+				else
+					board_string << ("#{value}|")
+				end
+			end
+			board_string << "\n"
+		end
+		return board_string
+	end
+
 	private
 	attr_writer :grid
 
